@@ -55,17 +55,13 @@ DYNOTEARS is treated as a directed statistical dependency prior, not as proof of
 ## Key Components
 ### 1. Structured Event Extraction
 
-Financial news and tweets are processed using Qwen2.5-1.5B-Instruct.
-
-
+Financial news and tweets are processed using Qwen2.5-1.5B-Instruct.<br>
 Each item is converted into a structured representation containing:
-
 - Subject
 - Event type
 - Polarity
 - Magnitude
 - Temporal horizon
-
 The structured representation is evaluated against a raw-text control to determine whether explicit event structure provides additional predictive information.
 
 ### 2. Text Representation
@@ -74,43 +70,32 @@ BGE embeddings are generated for textual and structured-event representations an
 
 ### 3. Temporal Modeling
 
-A 5-day GRU processes recent information for each company and captures short-term temporal dependencies.
-
-
+A 5-day GRU processes recent information for each company and captures short-term temporal dependencies.<br>
 The model also receives the filtered market-regime representation produced by the HMM.
 
 ### 4. Market Regime Detection
 
-A Hidden Markov Model (HMM) identifies latent market states.
-
-
-The final implementation uses filtered regime probabilities, meaning the regime estimate for day t only uses information available up to day t.
-
-
+A Hidden Markov Model (HMM) identifies latent market states.<br>
+The final implementation uses filtered regime probabilities, meaning the regime estimate for day t only uses information available up to day t.<br>
 Real regimes are compared against shuffled-regime controls.
 
 ### 5. Inter-Company Dependency Graph
 
 SCEG evaluates multiple graph constructions:
-
 - DYNOTEARS signed lead-lag dependency graph
 - Sector graph
 - Correlation graph
 - Matched-random graph
-
 The matched-random graph preserves the number and weighting of relationships while randomizing the company connections.
 
 ### 6. Graph Message Passing
 
-The final model uses gated residual graph message passing.
-
-
+The final model uses gated residual graph message passing.<br>
 A company can receive information from linked companies at:
 
 - the same day
 - one day earlier
 - two days earlier
-
 The graph contribution is initialized at zero and retained only when validation performance improves.
 
 ---
