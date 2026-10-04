@@ -62,7 +62,7 @@ Each item is converted into a structured representation containing:
 - Polarity
 - Magnitude
 - Temporal horizon
-The structured representation is evaluated against a raw-text control to determine whether explicit event structure provides additional predictive information.
+<br>The structured representation is evaluated against a raw-text control to determine whether explicit event structure provides additional predictive information.
 
 ### 2. Text Representation
 
