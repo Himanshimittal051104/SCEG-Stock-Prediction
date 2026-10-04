@@ -141,3 +141,226 @@ Magnitude prediction is not part of the final SCEG-R model and is treated only a
 
 ---
 
+## Datasets
+### StockNet / ACL18
+
+The ACL18 benchmark contains stock prices and Twitter data.
+
+
+SCEG applies a strict temporal cutoff of 16:00 ET. Tweets or news appearing after the cutoff are assigned to the following trading day.
+
+### FNSPID
+
+FNSPID provides financial news and historical stock-price information.
+
+
+The final evaluation uses chronological walk-forward testing across multiple test years.
+
+---
+
+## Experimental Protocol
+
+The project is designed as a controlled mechanism study.
+
+| Mechanism | Comparison |
+|---|---|
+| Structured events | Structured events vs. raw text |
+| Market regimes | Real HMM regimes vs. shuffled regimes |
+| Graph propagation | Learned graph vs. sector/correlation/matched-random graphs |
+| Temporal modeling | GRU vs. simpler and alternative temporal baselines |
+
+
+The experiments use:
+
+- 5 random seeds
+- Chronological train/validation/test splits
+- Training-only fitting of preprocessing components
+- Strict 16:00 ET news timing
+- Multiple baseline models
+- Block bootstrap
+- Newey–West adjustment
+- Holm multiple-testing correction
+- TOST equivalence testing
+
+Scalers, PCA transformations, HMMs, and graph structures are fitted using training data only.
+
+---
+
+## Baseline Models
+
+The framework is compared against:
+
+- Logistic Regression
+- MLP
+- GRU
+- Transformer
+- LightGBM
+- Momentum / reversal-style rules
+
+---
+
+## Results
+
+The main finding is not that SCEG produces a large predictive advantage.
+
+
+Instead, the controlled experiments found that the proposed mechanisms did not provide reliable stock-specific predictive signal under the strict evaluation protocol.
+
+### Direction Prediction
+
+On ACL18, SCEG-R achieved approximately:
+
+- 55.8% Accuracy
+- 0.125 MCC
+
+However, stock-specific accuracy was approximately 50.9%, indicating that much of the apparent directional skill came from predicting the overall market direction rather than reliably selecting individual stocks.
+
+
+On FNSPID:
+
+- 50.2% Accuracy
+- 0.001 MCC
+
+A logistic-regression baseline performed similarly.
+
+### Cross-Sectional Ranking
+| Dataset | RankIC |
+|---------|-------:|
+| ACL18   | 0.029  |
+| FNSPID  | 0.005  |
+
+The confidence intervals included zero, so the observed ranking signal could not be reliably distinguished from zero.
+
+---
+
+## Main Research Findings
+
+The controlled experiments found:
+
+- Structured events performed approximately like raw text.
+- Real market regimes did not outperform shuffled regimes.
+- Learned company graphs did not outperform appropriate graph controls.
+- Ranking performance remained close to zero.
+- The apparent ACL18 directional advantage was largely market-wide timing rather than stock-specific selection.
+
+These findings suggest that adding structured events, learned inter-company dependencies, and market regimes does not automatically provide useful stock-specific predictive information under strict next-day timing.
+
+---
+
+## Diagnostics
+
+The project investigates why the proposed mechanisms fail to produce reliable stock-specific signal.
+
+
+Key diagnostics include:
+
+- Limited information content in extracted events
+- Instability of learned graph relationships
+- Information dilution during graph propagation
+- Strong market-wide component in model predictions
+- Limited regime variation in some evaluation periods
+- Limited statistical power of the ACL18 test period
+
+---
+
+## Leakage and Reproducibility Controls
+
+The project applies several safeguards against temporal leakage:
+
+- News after 16:00 ET is assigned to the following trading day.
+- Scalers and PCA are fitted using training data only.
+- HMM regimes are filtered rather than smoothed.
+- Graph structures are estimated using training data.
+- Temporal windows do not cross dataset split boundaries.
+- Test predictions are generated only after the evaluation protocol is frozen.
+- Results are reported across five random seeds rather than selecting the best run.
+- Statistical corrections are applied for multiple comparisons.
+
+Known limitations and unresolved checks are explicitly documented.
+
+---
+
+## Limitations
+- ACL18 contains only 64 test days.
+- FNSPID has survivorship-bias concerns because the selected firms survive through the end of the sample.
+- A large portion of FNSPID news lacks precise timestamps.
+- Qwen and BGE were trained after portions of the historical evaluation period, creating a potential knowledge-cutoff limitation.
+- One automated price-feature leakage check remains unresolved and is disclosed as a limitation.
+- Published models such as MAN-SF were not yet reimplemented under exactly the same strict timing protocol.
+
+---
+
+## Future Work
+- Resolve the remaining leakage check.
+- Complete the FNSPID ranking study.
+- Re-run published stock-prediction models under the same strict timing protocol.
+- Conduct a pre-registered evaluation on an Indian-market dataset.
+- Use an event extractor with a knowledge cutoff before the evaluation period.
+- Investigate economically grounded relationships such as supplier-customer networks.
+
+---
+
+## Research Contribution
+
+The main contribution of SCEG is not a claim of superior stock-prediction accuracy.
+
+
+Instead, the project provides a controlled framework for testing whether:
+
+- structured financial events,
+- market regimes, and
+- inter-company graph propagation
+
+add measurable stock-specific predictive information.
+
+
+The experiments provide a replicated and bounded null result across two datasets, together with diagnostics explaining where the proposed mechanisms fail.
+
+---
+
+## Technologies
+- Python
+- PyTorch
+- Qwen2.5-1.5B-Instruct
+- BGE Embeddings
+- GRU
+- Hidden Markov Models
+DYNOTEARS
+- NumPy
+- Pandas
+- Scikit-learn
+- SciPy
+- Jupyter
+- Google Colab
+
+---
+
+## Repository Structure
+```text
+SCEG-Stock-Prediction/
+│
+├── README.md
+├── SCEG_ACL18_Final.ipynb
+└── SCEG_FNSPID_Final.ipynb
+```
+The notebooks contain the implementation, experiments, evaluation procedures, generated outputs, and research analysis.
+---
+
+## Author
+
+Himanshi Mittal
+
+
+B.Tech Computer Science & Engineering
+
+
+Indira Gandhi Delhi Technical University for Women (IGDTUW)
+
+---
+
+## Disclaimer
+
+This repository is intended for research and educational purposes. The reported results should not be interpreted as evidence of a reliable trading strategy or financial advice.
+
+---
+
