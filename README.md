@@ -55,14 +55,18 @@ DYNOTEARS is treated as a directed statistical dependency prior, not as proof of
 ## Key Components
 ### 1. Structured Event Extraction
 
-Financial news and tweets are processed using Qwen2.5-1.5B-Instruct.<br>
+Financial news and tweets are processed using Qwen2.5-1.5B-Instruct.
+
+
 Each item is converted into a structured representation containing:
 - Subject
 - Event type
 - Polarity
 - Magnitude
 - Temporal horizon
-<br>The structured representation is evaluated against a raw-text control to determine whether explicit event structure provides additional predictive information.
+
+
+The structured representation is evaluated against a raw-text control to determine whether explicit event structure provides additional predictive information.
 
 ### 2. Text Representation
 
@@ -86,16 +90,22 @@ SCEG evaluates multiple graph constructions:
 - Sector graph
 - Correlation graph
 - Matched-random graph
+
+
 The matched-random graph preserves the number and weighting of relationships while randomizing the company connections.
 
 ### 6. Graph Message Passing
 
-The final model uses gated residual graph message passing.<br>
+The final model uses gated residual graph message passing.
+
+
 A company can receive information from linked companies at:
 
 - the same day
 - one day earlier
 - two days earlier
+
+  
 The graph contribution is initialized at zero and retained only when validation performance improves.
 
 ---
