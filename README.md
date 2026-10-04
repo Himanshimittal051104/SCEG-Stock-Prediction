@@ -348,12 +348,8 @@ The notebooks contain the implementation, experiments, evaluation procedures, ge
 
 ## Author
 
-Himanshi Mittal
-
-
-B.Tech Computer Science & Engineering
-
-
+Himanshi Mittal<br>
+B.Tech Computer Science & Engineering<br>
 Indira Gandhi Delhi Technical University for Women (IGDTUW)
 
 ---
