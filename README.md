@@ -115,3 +115,29 @@ The graph contribution is initialized at zero and retained only when validation 
 
 ---
 
+## Prediction Tasks
+### Direction Prediction
+
+The model predicts whether a company's stock will move up or down.
+
+
+Metrics:
+
+- Accuracy
+- Matthews Correlation Coefficient (MCC)
+- AUC
+### Cross-Sectional Ranking
+
+The model produces a stock score that is used to rank companies relative to each other.
+
+
+Metrics:
+
+- IC
+- RankIC
+### Magnitude Prediction
+
+Magnitude prediction is not part of the final SCEG-R model and is treated only as a post-hoc analysis.
+
+---
+
