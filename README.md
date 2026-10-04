@@ -139,16 +139,12 @@ Magnitude prediction is not part of the final SCEG-R model and is treated only a
 ## Datasets
 ### StockNet / ACL18
 
-The ACL18 benchmark contains stock prices and Twitter data.
-
-
+The ACL18 benchmark contains stock prices and Twitter data.<br>
 SCEG applies a strict temporal cutoff of 16:00 ET. Tweets or news appearing after the cutoff are assigned to the following trading day.
 
 ### FNSPID
 
-FNSPID provides financial news and historical stock-price information.
-
-
+FNSPID provides financial news and historical stock-price information.<br>
 The final evaluation uses chronological walk-forward testing across multiple test years.
 
 ---
@@ -338,7 +334,9 @@ SCEG-Stock-Prediction/
 ├── SCEG_ACL18_Final.ipynb
 └── SCEG_FNSPID_Final.ipynb
 ```
+
 The notebooks contain the implementation, experiments, evaluation procedures, generated outputs, and research analysis.
+
 ---
 
 ## Author
